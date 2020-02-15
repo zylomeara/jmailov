@@ -1,13 +1,7 @@
+package main.java;
+
 public class Constants {
-    public static final String CSV_DATA_ROOT = "csv_data_root";
-    public static final String XML_DATA_ROOT = "xml_data_root";
+    public static final String PATH_TO_NATIVE_LIB_LINUX = "path_to_native_lib_linux";
+    public static final String PATH_TO_NATIVE_LIB_WIN = "path_to_native_lib_win";
 
-    public static final String JDBC_URL = "jdbc_url";
-    public static final String DB_USER = "db_user";
-    public static final String DB_USER_PASSWORD = "db_user_password";
-    public static final String DRIVER_CLASS = "driver_class";
-
-
-    public static final String DATE_FORMAT = "date_format";
-    public static final String DELIMITER_CSV = "delimiter_csv";
 }

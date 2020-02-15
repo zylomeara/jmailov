@@ -1,5 +1,5 @@
 
-package utils;
+package main.java.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
