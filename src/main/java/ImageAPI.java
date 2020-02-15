@@ -6,6 +6,8 @@ import static main.java.enums.OSType.*;
 import main.java.TypeOS;
 import org.apache.log4j.Logger;
 import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
 
 public class ImageAPI {
     private static final Logger LOG = Logger.getLogger(ImageAPI.class);
@@ -15,11 +17,11 @@ public class ImageAPI {
         switch (TypeOS.getOperatingSystemType()) {
             case LINUX:
                 System.load(ConfigurationUtil.getConfigurationEntry(Constants.PATH_TO_NATIVE_LIB_LINUX));
-                LOG.info("Loaded with path " + ConfigurationUtil.getConfigurationEntry(Constants.PATH_TO_NATIVE_LIB_LINUX));
+                LOG.debug("Loaded for Linux with path " + ConfigurationUtil.getConfigurationEntry(Constants.PATH_TO_NATIVE_LIB_LINUX));
                 break;
             case WINDOWS:
                 System.load(ConfigurationUtil.getConfigurationEntry(Constants.PATH_TO_NATIVE_LIB_WIN));
-                LOG.info("Loaded with path " + ConfigurationUtil.getConfigurationEntry(Constants.PATH_TO_NATIVE_LIB_WIN));
+                LOG.debug("Loaded for Windows with path " + ConfigurationUtil.getConfigurationEntry(Constants.PATH_TO_NATIVE_LIB_WIN));
                 break;
             case MACOS:
                 throw new Exception("Mac OS does not support!!!!!!!!");
@@ -33,5 +35,10 @@ public class ImageAPI {
 
     public String getVersion() {
         return Core.VERSION;
+    }
+
+    public void HelloCV() {
+        Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
+        System.out.println("mat = " + mat.dump());
     }
 }

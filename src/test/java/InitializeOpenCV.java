@@ -10,6 +10,7 @@ public class InitializeOpenCV {
     public void initialize() throws Exception {
         instanceImageAPI = new ImageAPI();
 
-        System.out.println(instanceImageAPI.getVersion());
+//        System.out.println(instanceImageAPI.getVersion());
+        instanceImageAPI.HelloCV();
     }
 }

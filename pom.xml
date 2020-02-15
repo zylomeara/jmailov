@@ -41,7 +41,6 @@
             <groupId>org.opencv</groupId>
             <artifactId>opencv</artifactId>
             <version>3.49</version>
-            <systemPath>${project.basedir}/src/main/resources/openCV/opencv-349.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
