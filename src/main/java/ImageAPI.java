@@ -66,17 +66,8 @@ public class ImageAPI {
         JLabel lbl=new JLabel();
         lbl.setIcon(icon);
         frame.add(lbl);
-
-        JButton button1;
-        JTextField field1;
-        field1 = new JTextField(20);
-        frame.add(field1);
-        button1 = new JButton("Click Me");
-        frame.add(button1);
-
         frame.setVisible(true);
         frame.pack();
-//        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

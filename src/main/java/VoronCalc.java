@@ -29,9 +29,16 @@ public class VoronCalc extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public static void main(String[] args) {
-        VoronCalc app = new VoronCalc();
-        app.setVisible(true);
+    public static void main(String[] args) throws Exception {
+//        VoronCalc app = new VoronCalc();
+//        app.setVisible(true);
 //        app.pack(); //Эта команда подбирает оптимальный размер в зависимости от содержимого окна
+        ImageAPI app = new ImageAPI();
+        app.processImage(
+                "/home/artem1y3/IdeaProjects/jmailov/src/main/resources/images/",
+                "color.jpg",
+//                "example.jpg",
+                3
+        );
     }
 }
