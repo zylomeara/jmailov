@@ -8,6 +8,12 @@ import org.apache.log4j.Logger;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 
 public class ImageAPI {
     private static final Logger LOG = Logger.getLogger(ImageAPI.class);
@@ -40,5 +46,51 @@ public class ImageAPI {
     public void HelloCV() {
         Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
         System.out.println("mat = " + mat.dump());
+    }
+
+    public void showImage(Mat m){
+        int type = BufferedImage.TYPE_BYTE_GRAY;
+        if ( m.channels() > 1 ) {
+            type = BufferedImage.TYPE_3BYTE_BGR;
+        }
+        int bufferSize = m.channels()*m.cols()*m.rows();
+        byte [] b = new byte[bufferSize];
+        m.get(0,0, b);
+        BufferedImage image = new BufferedImage(m.cols(),m.rows(), type);
+        final byte[] targetPixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
+        System.arraycopy(b, 0, targetPixels, 0, b.length);
+        ImageIcon icon=new ImageIcon(image);
+        JFrame frame=new JFrame();
+        frame.setLayout(new FlowLayout());
+        frame.setSize(image.getWidth(null)+50, image.getHeight(null)+50);
+        JLabel lbl=new JLabel();
+        lbl.setIcon(icon);
+        frame.add(lbl);
+
+        JButton button1;
+        JTextField field1;
+        field1 = new JTextField(20);
+        frame.add(field1);
+        button1 = new JButton("Click Me");
+        frame.add(button1);
+
+        frame.setVisible(true);
+        frame.pack();
+//        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void processImage(String dirPath, String imageName, int numChn) {
+        Mat srcImage = Imgcodecs.imread(dirPath + imageName);
+        int totalBytes = (int) (srcImage.total() * srcImage.elemSize());
+        byte buffer[] = new byte[totalBytes];
+        srcImage.get(0, 0, buffer);
+        for (int i = 0; i < totalBytes; i++) {
+            if (i % numChn == 0) {
+                buffer[i] = 0;
+            }
+        }
+        srcImage.put(0, 0, buffer);
+        showImage(srcImage);
     }
 }
