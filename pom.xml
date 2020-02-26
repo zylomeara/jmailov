@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <build>
-        <sourceDirectory>/home/artem1y3/IdeaProjects/jmailov/src</sourceDirectory>
+        <sourceDirectory>/Users/tk_user/IdeaProjects/Jmailov/src</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -40,7 +40,7 @@
         <dependency>
             <groupId>org.opencv</groupId>
             <artifactId>opencv</artifactId>
-            <version>3.49</version>
+            <version>4.20</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>

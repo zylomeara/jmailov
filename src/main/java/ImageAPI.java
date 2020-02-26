@@ -24,7 +24,9 @@ public class ImageAPI {
                 LOG.debug("Loaded for Windows with path " + ConfigurationUtil.getConfigurationEntry(Constants.PATH_TO_NATIVE_LIB_WIN));
                 break;
             case MACOS:
-                throw new Exception("Mac OS does not support!!!!!!!!");
+                System.load(ConfigurationUtil.getConfigurationEntry(Constants.PATH_TO_NATIVE_LIB_MAC_OS));
+                LOG.debug("Loaded for Windows with path " + ConfigurationUtil.getConfigurationEntry(Constants.PATH_TO_NATIVE_LIB_MAC_OS));
+                break;
             case OTHER:
                 throw new Exception("Current OS does not support!!!!!");
             default:
