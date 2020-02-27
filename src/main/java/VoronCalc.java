@@ -40,5 +40,6 @@ public class VoronCalc extends JFrame {
 //                "example.jpg",
                 3
         );
+        System.out.println(1);
     }
 }

@@ -68,10 +68,11 @@ public class ImageAPI {
         frame.add(lbl);
         frame.setVisible(true);
         frame.pack();
+//        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void processImage(String dirPath, String imageName, int numChn) {
+    public Mat processImage(String dirPath, String imageName, int numChn) {
         Mat srcImage = Imgcodecs.imread(dirPath + imageName);
         int totalBytes = (int) (srcImage.total() * srcImage.elemSize());
         byte buffer[] = new byte[totalBytes];
@@ -82,6 +83,7 @@ public class ImageAPI {
             }
         }
         srcImage.put(0, 0, buffer);
-        showImage(srcImage);
+//        showImage(srcImage);
+        return srcImage;
     }
 }
