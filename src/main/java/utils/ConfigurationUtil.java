@@ -13,7 +13,7 @@ import java.util.Properties;
  */
 public class ConfigurationUtil {
 
-    private static final String DEFAULT_CONFIG_PATH = "/enviroment.properties";
+    private static final String DEFAULT_CONFIG_PATH = "enviroment.properties";
     private static final Properties CONFIGURATION = new Properties();
 
     /**
@@ -22,7 +22,7 @@ public class ConfigurationUtil {
     public ConfigurationUtil() {
     }
 
-    
+
     private static Properties getConfiguration() throws IOException {
         if(CONFIGURATION.isEmpty()){
             loadConfiguration();
@@ -35,7 +35,9 @@ public class ConfigurationUtil {
      * @throws IOException In case of the configuration file read failure
      */
     private static void loadConfiguration() throws IOException {
-        InputStream in = DEFAULT_CONFIG_PATH.getClass().getResourceAsStream(DEFAULT_CONFIG_PATH);
+//        InputStream in = String.class.getResourceAsStream(DEFAULT_CONFIG_PATH);
+//        InputStream in = DEFAULT_CONFIG_PATH.getClass().getResourceAsStream(DEFAULT_CONFIG_PATH);
+        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(DEFAULT_CONFIG_PATH);
         try {
             CONFIGURATION.load(in);
         } catch (IOException ex) {
@@ -43,7 +45,7 @@ public class ConfigurationUtil {
         } finally{
             in.close();
         }
-    }   
+    }
     /**
      * Gets configuration entry value
      * @param key Entry key
@@ -53,5 +55,5 @@ public class ConfigurationUtil {
     public static String getConfigurationEntry(String key) throws IOException {
         return getConfiguration().getProperty(key);
     }
-    
+
 }

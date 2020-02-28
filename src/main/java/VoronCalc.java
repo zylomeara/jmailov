@@ -1,7 +1,9 @@
 package main.java;
 
+import main.java.ImageAPI.ChannelsEnum;
+import main.java.ImageAPI.ImageAPI;
+
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
 public class VoronCalc extends JFrame {
@@ -34,11 +36,10 @@ public class VoronCalc extends JFrame {
 //        app.setVisible(true);
 //        app.pack(); //Эта команда подбирает оптимальный размер в зависимости от содержимого окна
         ImageAPI app = new ImageAPI();
-        app.processImage(
-                "/home/artem1y3/IdeaProjects/jmailov/src/main/resources/images/",
+        app.loadImage(
                 "color.jpg",
 //                "example.jpg",
-                3
+                ChannelsEnum.Color
         );
         System.out.println(1);
     }

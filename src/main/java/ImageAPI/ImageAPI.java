@@ -1,9 +1,8 @@
-package main.java;
+package main.java.ImageAPI;
 
-import main.java.utils.ConfigurationUtil;
 import main.java.Constants;
-import static main.java.enums.OSType.*;
 import main.java.TypeOS;
+import main.java.utils.ConfigurationUtil;
 import org.apache.log4j.Logger;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
@@ -11,12 +10,16 @@ import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+import java.io.IOException;
+import java.util.stream.IntStream;
 
 public class ImageAPI {
     private static final Logger LOG = Logger.getLogger(ImageAPI.class);
+    private Mat srcImage;
+
     public ImageAPI() throws Exception {
         LOG.info("Checking OS.....");
         // init the API with curent os..
@@ -30,7 +33,9 @@ public class ImageAPI {
                 LOG.debug("Loaded for Windows with path " + ConfigurationUtil.getConfigurationEntry(Constants.PATH_TO_NATIVE_LIB_WIN));
                 break;
             case MACOS:
-                throw new Exception("Mac OS does not support!!!!!!!!");
+                System.load(ConfigurationUtil.getConfigurationEntry(Constants.PATH_TO_NATIVE_LIB_MAC_OS));
+                LOG.debug("Loaded for Mac OS with path " + ConfigurationUtil.getConfigurationEntry(Constants.PATH_TO_NATIVE_LIB_MAC_OS));
+                break;
             case OTHER:
                 throw new Exception("Current OS does not support!!!!!");
             default:
@@ -48,42 +53,53 @@ public class ImageAPI {
         System.out.println("mat = " + mat.dump());
     }
 
-    public void showImage(Mat m){
+    public void showImage() {
+        Mat m = this.srcImage;
         int type = BufferedImage.TYPE_BYTE_GRAY;
-        if ( m.channels() > 1 ) {
+        if (m.channels() == ChannelsEnum.Color.get()) {
             type = BufferedImage.TYPE_3BYTE_BGR;
         }
-        int bufferSize = m.channels()*m.cols()*m.rows();
-        byte [] b = new byte[bufferSize];
-        m.get(0,0, b);
-        BufferedImage image = new BufferedImage(m.cols(),m.rows(), type);
+        int bufferSize = m.channels() * m.cols() * m.rows();
+        byte[] b = new byte[bufferSize];
+        m.get(0, 0, b);
+        BufferedImage image = new BufferedImage(m.cols(), m.rows(), type);
         final byte[] targetPixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
         System.arraycopy(b, 0, targetPixels, 0, b.length);
-        ImageIcon icon=new ImageIcon(image);
-        JFrame frame=new JFrame();
+        ImageIcon icon = new ImageIcon(image);
+        JFrame frame = new JFrame();
         frame.setLayout(new FlowLayout());
-        frame.setSize(image.getWidth(null)+50, image.getHeight(null)+50);
-        JLabel lbl=new JLabel();
+        frame.setSize(image.getWidth(null) + 50, image.getHeight(null) + 50);
+        JLabel lbl = new JLabel();
         lbl.setIcon(icon);
         frame.add(lbl);
         frame.setVisible(true);
-        frame.pack();
-//        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+//        frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public Mat processImage(String dirPath, String imageName, int numChn) {
+    public void loadImage(String imageName, ChannelsEnum channelEnum) throws IOException {
+        String dirPath = ConfigurationUtil.getConfigurationEntry(Constants.PATH_TO_SOURCE_IMAGES);
         Mat srcImage = Imgcodecs.imread(dirPath + imageName);
         int totalBytes = (int) (srcImage.total() * srcImage.elemSize());
         byte buffer[] = new byte[totalBytes];
         srcImage.get(0, 0, buffer);
-        for (int i = 0; i < totalBytes; i++) {
-            if (i % numChn == 0) {
-                buffer[i] = 0;
-            }
-        }
+        int channelNum = channelEnum.get();
+
+        IntStream.range(0, buffer.length)
+                .forEach(i -> {
+                    if (i % channelNum == 0) {
+                        buffer[i] = 0;
+                    }
+                });
+
         srcImage.put(0, 0, buffer);
-//        showImage(srcImage);
-        return srcImage;
+        this.srcImage = srcImage;
+        LOG.info("Image loaded: " + dirPath + imageName);
+    }
+
+    public void saveImage(String imageName) throws IOException {
+        String dirPath = ConfigurationUtil.getConfigurationEntry(Constants.PATH_TO_DESTINATION_IMAGES);
+        Imgcodecs.imwrite(dirPath + imageName, this.srcImage);
+        LOG.info("Image saved: " + dirPath + imageName);
     }
 }

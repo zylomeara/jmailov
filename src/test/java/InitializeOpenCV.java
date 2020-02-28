@@ -1,8 +1,8 @@
 package test.java;
 
-import main.java.ImageAPI;
+import main.java.ImageAPI.ChannelsEnum;
+import main.java.ImageAPI.ImageAPI;
 import org.junit.Test;
-import org.opencv.core.Mat;
 
 public class InitializeOpenCV {
     private ImageAPI instanceImageAPI;
@@ -12,14 +12,13 @@ public class InitializeOpenCV {
     @Test
     public void showWhiteBlackImage() throws Exception {
         instanceImageAPI = new ImageAPI();
-        Mat srcImage = instanceImageAPI.processImage(
-                "/home/artem1y3/IdeaProjects/jmailov/src/main/resources/images/",
+        instanceImageAPI.loadImage(
                 "color.jpg",
 //                "example.jpg",
-                3
+                ChannelsEnum.Color
         );
-        instanceImageAPI.showImage(srcImage);
-        System.out.println(1);
+//        instanceImageAPI.showImage();
+        instanceImageAPI.saveImage("color.jpg");
     }
 
     @Test
