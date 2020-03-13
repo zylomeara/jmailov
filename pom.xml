@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <build>
-        <sourceDirectory>/Users/tk_user/IdeaProjects/Jmailov/src</sourceDirectory>
+        <sourceDirectory>/home/artem1y3/IdeaProjects/jmailov/src</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

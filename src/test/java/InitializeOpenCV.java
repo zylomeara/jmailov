@@ -17,8 +17,8 @@ public class InitializeOpenCV {
 //                "example.jpg",
                 ChannelsEnum.Color
         );
-//        instanceImageAPI.showImage();
-        instanceImageAPI.saveImage("color.jpg");
+        instanceImageAPI.showImage();
+//        instanceImageAPI.saveImage("color.jpg");
     }
 
     @Test
