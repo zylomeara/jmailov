@@ -1,19 +1,17 @@
 package main.java;
 
-import main.java.ImageAPI.ChannelsEnum;
 import main.java.ImageAPI.ImageAPI;
-import org.opencv.core.Core;
+import org.opencv.imgcodecs.Imgcodecs;
 
 public class Main {
-//    static {System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
     public static void main(String[] args) throws Exception {
-//        System.out.println(Core.NATIVE_LIBRARY_NAME);
-//        System.out.println(Core.VERSION);
         ImageAPI instanceImageAPI  = new ImageAPI();
         instanceImageAPI.loadImage(
                 "color.jpg",
 //                "example.jpg",
-                ChannelsEnum.Color
+                0,
+                Imgcodecs.CV_LOAD_IMAGE_COLOR
+//                Imgcodecs.CV_LOAD_IMAGE_GRAYSCALE
         );
         instanceImageAPI.showImage();
     }

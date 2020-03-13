@@ -77,17 +77,16 @@ public class ImageAPI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void loadImage(String imageName, ChannelsEnum channelEnum) throws IOException {
+    public void loadImage(String imageName, int channelNum, int colorType) throws IOException {
         String dirPath = ConfigurationUtil.getConfigurationEntry(Constants.PATH_TO_SOURCE_IMAGES);
-        Mat srcImage = Imgcodecs.imread(dirPath + imageName);
+        Mat srcImage = Imgcodecs.imread(dirPath + imageName, colorType);
         int totalBytes = (int) (srcImage.total() * srcImage.elemSize());
         byte buffer[] = new byte[totalBytes];
         srcImage.get(0, 0, buffer);
-        int channelNum = channelEnum.get();
 
         IntStream.range(0, buffer.length)
                 .forEach(i -> {
-                    if (i % channelNum == 0) {
+                    if (i % 3 == channelNum - 1 && channelNum != 0) {
                         buffer[i] = 0;
                     }
                 });

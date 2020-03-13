@@ -3,6 +3,7 @@ package test.java;
 import main.java.ImageAPI.ChannelsEnum;
 import main.java.ImageAPI.ImageAPI;
 import org.junit.Test;
+import org.opencv.imgcodecs.Imgcodecs;
 
 public class InitializeOpenCV {
     private ImageAPI instanceImageAPI;
@@ -15,7 +16,8 @@ public class InitializeOpenCV {
         instanceImageAPI.loadImage(
                 "color.jpg",
 //                "example.jpg",
-                ChannelsEnum.Color
+                0,
+                Imgcodecs.CV_LOAD_IMAGE_GRAYSCALE
         );
         instanceImageAPI.showImage();
 //        instanceImageAPI.saveImage("color.jpg");
