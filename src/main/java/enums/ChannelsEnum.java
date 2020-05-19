@@ -1,4 +1,4 @@
-package main.java.ImageAPI;
+package main.java.enums;
 
 public enum ChannelsEnum {
     Gray(1), Color(3);

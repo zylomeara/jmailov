@@ -1,4 +1,4 @@
-package main.java;
+package main.java.constants;
 
 public class Constants {
     public static final String MEDIA_PATH_TO_DESTINATION_IMAGES = "media.path_to_destination_images";
