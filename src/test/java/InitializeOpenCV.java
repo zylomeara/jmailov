@@ -8,25 +8,25 @@ public class InitializeOpenCV {
     private ImageAPI instanceImageAPI;
 
 
-
-    @Test
-    public void showWhiteBlackImage() throws Exception {
-        instanceImageAPI = new ImageAPI();
-        instanceImageAPI.loadImage(
-                "color.jpg",
-//                "example.jpg",
-                0,
-                Imgcodecs.IMREAD_COLOR
-        );
-        instanceImageAPI.showImage();
-//        instanceImageAPI.saveImage("color.jpg");
-    }
-
-    @Test
-    public void initialize() throws Exception {
-        instanceImageAPI = new ImageAPI();
-
-//        System.out.println(instanceImageAPI.getVersion());
-        instanceImageAPI.HelloCV();
-    }
+//
+//    @Test
+//    public void showWhiteBlackImage() throws Exception {
+//        instanceImageAPI = new ImageAPI();
+//        instanceImageAPI.loadImage(
+//                "color.jpg",
+////                "example.jpg",
+//                0,
+//                Imgcodecs.IMREAD_COLOR
+//        );
+//        instanceImageAPI.showImage();
+////        instanceImageAPI.saveImage("color.jpg");
+//    }
+//
+//    @Test
+//    public void initialize() throws Exception {
+//        instanceImageAPI = new ImageAPI();
+//
+////        System.out.println(instanceImageAPI.getVersion());
+//        instanceImageAPI.HelloCV();
+//    }
 }

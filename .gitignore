@@ -5,3 +5,4 @@ mainlog.log
 classes/
 src/main/resources/openCV/
 /lib/*
+/src/main/resources/images/destination/*
