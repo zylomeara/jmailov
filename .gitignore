@@ -4,3 +4,4 @@ tmp/
 mainlog.log
 classes/
 src/main/resources/openCV/
+/lib/*

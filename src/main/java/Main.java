@@ -8,10 +8,8 @@ public class Main {
         ImageAPI instanceImageAPI  = new ImageAPI();
         instanceImageAPI.loadImage(
                 "color.jpg",
-//                "example.jpg",
                 0,
-                Imgcodecs.CV_LOAD_IMAGE_COLOR
-//                Imgcodecs.CV_LOAD_IMAGE_GRAYSCALE
+                Imgcodecs.IMREAD_COLOR
         );
         instanceImageAPI.showImage();
     }
