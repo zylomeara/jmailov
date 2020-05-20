@@ -46,8 +46,8 @@ public class ImageAPI {
         showImage("");
     }
 
-    public void saveImage(String imageName) {
-        CVUtils.saveImage(dstImage, imageName);
+    public void saveImage(String imagePath) {
+        CVUtils.saveImage(dstImage, imagePath);
     }
 
     public void resetChanges() {
