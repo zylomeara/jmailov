@@ -17,9 +17,9 @@ import org.opencv.imgcodecs.Imgcodecs;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Main {
     private static final Logger LOG = Logger.getLogger(ImageAPI.class);
@@ -183,12 +183,14 @@ public class Main {
                     .map(Integer::parseInt)
                     .collect(Collectors.toList());
 
-                List<Integer> fillFloodColor = Arrays.stream(ConfigurationUtil
-                    .getConfigurationEntry(Constants.LAB_4_FILL_FLOOD_FILL_COLOR)
-                    .replaceAll("\\s", "")
-                    .split(","))
-                    .map(Integer::parseInt)
-                    .collect(Collectors.toList());
+                Optional<List<Integer>> fillFloodColor = ConfigurationUtil
+                    .getOptionalConfigurationEntry(Constants.LAB_4_FILL_FLOOD_FILL_COLOR)
+                    .map(s -> Arrays.stream(s
+                        .replaceAll("\\s", "")
+                        .split(","))
+                        .map(Integer::parseInt)
+                        .collect(Collectors.toList())
+                    );
 
                 List<Integer> rangeColor = Arrays.stream(ConfigurationUtil
                     .getConfigurationEntry(Constants.LAB_4_FILL_FLOOD_RANGE_COLOR)
@@ -204,14 +206,28 @@ public class Main {
 
                 ImageAPI fillFloodImg = new ImageAPI(fillFloodImagePathLab4, fillFloodImageType);
 
-                fillFloodImg.fillFlood(
-                    new Pair<>(fillFloodPointCoords.get(0), fillFloodPointCoords.get(1)),
-                    new Triplet<>(fillFloodColor.get(0), fillFloodColor.get(1), fillFloodColor.get(2)),
-                    new Pair<>(
-                        new Triplet<>(rangeColor.get(0),rangeColor.get(1),rangeColor.get(2)),
-                        new Triplet<>(rangeColor.get(3),rangeColor.get(4),rangeColor.get(5))
+                fillFloodColor.ifPresent(color ->
+                    fillFloodImg.fillFlood(
+                        new Pair<>(fillFloodPointCoords.get(0), fillFloodPointCoords.get(1)),
+                        new Triplet<>(color.get(0), color.get(1), color.get(2)),
+                        new Pair<>(
+                            new Triplet<>(rangeColor.get(0), rangeColor.get(1), rangeColor.get(2)),
+                            new Triplet<>(rangeColor.get(3), rangeColor.get(4), rangeColor.get(5))
+                        )
                     )
                 );
+
+                if (!fillFloodColor.isPresent()) {
+                    fillFloodImg.fillFlood(
+                        new Pair<>(fillFloodPointCoords.get(0), fillFloodPointCoords.get(1)),
+                        new Pair<>(
+                            new Triplet<>(rangeColor.get(0), rangeColor.get(1), rangeColor.get(2)),
+                            new Triplet<>(rangeColor.get(3), rangeColor.get(4), rangeColor.get(5))
+                        )
+                    );
+                }
+
+
 
                 fillFloodImg.saveImage(String.format("%sfill_flood.jpeg", dstDirPathOfLab4));
             } else {

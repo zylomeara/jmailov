@@ -3,6 +3,7 @@ package main.java.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Optional;
 import java.util.Properties;
 
 /**
@@ -35,8 +36,6 @@ public class ConfigurationUtil {
      * @throws IOException In case of the configuration file read failure
      */
     private static void loadConfiguration() throws IOException {
-//        InputStream in = String.class.getResourceAsStream(DEFAULT_CONFIG_PATH);
-//        InputStream in = DEFAULT_CONFIG_PATH.getClass().getResourceAsStream(DEFAULT_CONFIG_PATH);
         InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(DEFAULT_CONFIG_PATH);
         try {
             CONFIGURATION.load(in);
@@ -54,6 +53,13 @@ public class ConfigurationUtil {
      */
     public static String getConfigurationEntry(String key) throws IOException {
         return getConfiguration().getProperty(key);
+    }
+
+    public static Optional<String> getOptionalConfigurationEntry(String key) {
+        try {
+            return Optional.of(getConfiguration().getProperty(key));
+        } catch (IOException | NullPointerException ignored) {}
+        return Optional.empty();
     }
 
 }
