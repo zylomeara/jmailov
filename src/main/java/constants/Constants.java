@@ -26,6 +26,5 @@ public class Constants {
     public static final String LAB_4_PYRAMID_DIRECTION = "lab-4.pyramid.pyramid-direction";
     public static final String LAB_4_RECOGNIZE_RECT_IMAGE_PATH = "lab-4.recognize-rect.image-path";
     public static final String LAB_4_RECOGNIZE_RECT_IMAGE_TYPE = "lab-4.recognize-rect.image-type";
-    public static final String LAB_4_RECOGNIZE_RECT_RECOGNITION_ACCURACY = "lab-4.recognize-rect.recognition-accuracy";
     public static final String LAB_4_RECOGNIZE_RECT_RANGE_WIDTH_HEIGHT_RECT = "lab-4.recognize-rect.range-width-height-rect";
 }
